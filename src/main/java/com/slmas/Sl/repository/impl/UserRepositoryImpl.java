@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     final String FIND_USER_BY_NAME = "SELECT * FROM Users WHERE user_name = ?";
     final String FIND_USER_BY_ID = "SELECT * FROM Users WHERE id = ?";
     private final String GET_ALL_USERS = "SELECT * FROM Users";
-    private final String EDIT_USER = "UPDATE users SET name = ?, surname = ?, password = ?, role = ?, area = ? WHERE id = ?";
+    private final String EDIT_USER = "UPDATE users SET name = ?, surname = ?, user_name = ?, password = ?, role = ?, area = ? WHERE id = ?";
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -87,8 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (!newUser.getRole().isEmpty()) edituser.setRole(newUser.getRole());
         else edituser.setRole(currentUser.getRole());
 
-
-        return jdbcTemplate.update(EDIT_USER, edituser.getName(), edituser.getSurname(), edituser.getPassword(), edituser.getRole(), newUser.getId());
+        return jdbcTemplate.update(EDIT_USER, edituser.getName(), edituser.getSurname(), edituser.getUserName(), edituser.getPassword(), edituser.getRole(), edituser.getArea(), newUser.getId());
     }
 
     static class UserRowMapper implements RowMapper<User> {
