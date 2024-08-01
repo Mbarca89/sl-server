@@ -64,6 +64,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserResponseDto getUserByName(String userName) {
+        User user = userRepository.findUserByName(userName);
+        return mapUserToDto(user);
+    }
+
+    @Override
     public String editUser(UserRequestDto userRequestDto) throws MissingDataException, NoSuchAlgorithmException, NotFoundException {
         if (userRequestDto.getUserName() == null ||
                 userRequestDto.getRole() == null || Objects.equals(userRequestDto.getUserName(), "")

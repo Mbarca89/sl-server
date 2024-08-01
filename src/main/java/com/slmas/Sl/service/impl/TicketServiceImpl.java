@@ -23,15 +23,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public String createTicket(TicketRequestDto ticketRequestDto, Images images) throws RepositoryException {
+    public Long createTicket(TicketRequestDto ticketRequestDto, Images images) throws RepositoryException {
         Ticket ticket = MapDtoToTicket(ticketRequestDto);
         ticket.setImage(images.getFullImage());
-        Integer res = ticketRepository.createTicket(ticket);
-        if (res == 1) {
-            return "Ticket creado con exito.";
-        } else {
-            return "Error al crear el ticket";
-        }
+        return ticketRepository.createTicket(ticket);
     }
 
     @Override
@@ -56,7 +51,7 @@ public class TicketServiceImpl implements TicketService {
     public String closeTicket (TicketRequestDto ticketRequestDto) throws RepositoryException {
         Integer response = ticketRepository.closeTicket(MapDtoToTicket(ticketRequestDto));
         if (response == 1) {
-            return "Ticket cerado con exito.";
+            return "Ticket cerrado con exito.";
         } else {
             throw new RuntimeException("Error al cerrar el ticket");
         }

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface TicketService {
-    String createTicket (TicketRequestDto ticketRequestDto, Images images) throws RepositoryException;
+    Long createTicket (TicketRequestDto ticketRequestDto, Images images) throws RepositoryException;
     TicketResponseDto getTicketById (Long id) throws RepositoryException;
     List<TicketResponseDto> getFilteredTickets(Date startDate, Date endDate, String area, String closed) throws RepositoryException;
     List<TicketResponseDto> getUserTickets(Date startDate, Date endDate, Long userId) throws RepositoryException;

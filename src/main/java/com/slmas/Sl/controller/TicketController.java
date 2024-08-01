@@ -41,9 +41,9 @@ public class TicketController {
             if (file != null && !file.isEmpty()) {
                 images = ImageCompressor.compressImage(file.getBytes());
             }
-            String res = ticketService.createTicket(ticketRequestDto, images);
-            template.convertAndSend("/topic/notifications", "Nuevo ticket creado!");
-            return ResponseEntity.status(HttpStatus.OK).body(res);
+            Long ticketId = ticketService.createTicket(ticketRequestDto, images);
+            template.convertAndSend("/topic/notifications", "Nuevo ticket creado/" + ticketId);
+            return ResponseEntity.status(HttpStatus.OK).body("Ticket creado correctamente!");
         } catch (RepositoryException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         } catch (Exception e) {

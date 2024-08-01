@@ -23,10 +23,9 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public Integer createTicket(Ticket ticket) throws RepositoryException {
+    public Long createTicket(Ticket ticket) throws RepositoryException {
         String CREATE_TICKET = "INSERT INTO Tickets (user_id, user_name, area, date, title, type, description, image) VALUES (?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        System.out.println(ticket.getImage());
         try {
             jdbcTemplate.update(con -> {
                 PreparedStatement ps = con.prepareStatement(CREATE_TICKET, Statement.RETURN_GENERATED_KEYS);
@@ -43,7 +42,8 @@ public class TicketRepositoryImpl implements TicketRepository {
             Long ticketId = Objects.requireNonNull(keyHolder.getKey()).longValue();
 
             String RELATE_USER_TICKET = "INSERT INTO UserTickets (user_id, ticket_id) VALUES (?,?)";
-            return jdbcTemplate.update(RELATE_USER_TICKET, ticket.getUserId(), ticketId);
+            jdbcTemplate.update(RELATE_USER_TICKET, ticket.getUserId(), ticketId);
+            return ticketId;
         } catch (Exception e) {
             throw new RepositoryException("Error en base de datos: " + e.getMessage());
         }

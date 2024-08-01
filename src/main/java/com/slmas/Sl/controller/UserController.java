@@ -62,6 +62,17 @@ public class UserController {
     }
 
     @CrossOrigin
+    @GetMapping("/getUserByName/{userName}")
+    public ResponseEntity<?> getUserByNameHandler (@PathVariable String userName) {
+        try {
+            UserResponseDto response = userService.getUserByName(userName);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @CrossOrigin
     @PostMapping("/edit")
     public ResponseEntity<String> editUserHandler(@RequestBody UserRequestDto userRequestDto) {
         try {
