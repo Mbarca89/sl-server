@@ -24,7 +24,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public Long createTicket(Ticket ticket) throws RepositoryException {
-        String CREATE_TICKET = "INSERT INTO Tickets (user_id, user_name, area, date, title, type, description, image) VALUES (?,?,?,?,?,?,?,?)";
+        String CREATE_TICKET = "INSERT INTO Tickets (user_id, user_name, area, ticket_date, title, type, description, image) VALUES (?,?,?,?,?,?,?,?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         try {
             jdbcTemplate.update(con -> {
@@ -51,7 +51,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public List<Ticket> getUserTickets(Date startDate, Date endDate, Long userId) throws RepositoryException {
-        String GET_TICKETS = "SELECT * FROM Tickets WHERE date BETWEEN ? AND ? AND user_id = ?";
+        String GET_TICKETS = "SELECT * FROM Tickets WHERE ticket_date BETWEEN ? AND ? AND user_id = ?";
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(endDate);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -82,7 +82,7 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public List<Ticket> getFilteredTickets(Date startDate, Date endDate, String area, String closed) throws RepositoryException {
-        String GET_FILTERED_TICKETS = "SELECT * FROM Tickets WHERE date BETWEEN ? AND ?";
+        String GET_FILTERED_TICKETS = "SELECT * FROM Tickets WHERE ticket_date BETWEEN ? AND ?";
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(endDate);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -134,7 +134,7 @@ public class TicketRepositoryImpl implements TicketRepository {
         public Ticket mapRow(ResultSet rs, int rowNum) throws SQLException {
             Ticket ticket = new Ticket();
             ticket.setId(rs.getLong("id"));
-            ticket.setDate(rs.getTimestamp("date"));
+            ticket.setDate(rs.getTimestamp("ticket_date"));
             ticket.setTitle(rs.getString("title"));
             ticket.setArea(rs.getString("area"));
             ticket.setClosed(rs.getBoolean("closed"));
@@ -152,7 +152,7 @@ public class TicketRepositoryImpl implements TicketRepository {
             ticket.setUserId(rs.getLong("user_id"));
             ticket.setUserName(rs.getString("user_name"));
             ticket.setArea(rs.getString("area"));
-            ticket.setDate(rs.getTimestamp("date"));
+            ticket.setDate(rs.getTimestamp("ticket_date"));
             ticket.setTitle(rs.getString("title"));
             ticket.setType(rs.getString("type"));
             ticket.setDescription(rs.getString("description"));

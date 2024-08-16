@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Tickets (
     user_id LONG NOT NULL,
     user_name VARCHAR(50) NOT NULL,
     area VARCHAR(50) NOT NULL,
-    date DATETIME NOT NULL,
+    ticket_date DATETIME NOT NULL,
     title VARCHAR(50) NOT NULL,
     type VARCHAR(50) NOT NULL,
     description VARCHAR(255) NOT NULL,
