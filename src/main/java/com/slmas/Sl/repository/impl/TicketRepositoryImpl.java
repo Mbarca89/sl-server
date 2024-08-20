@@ -130,7 +130,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
     @Override
     public Integer editTicketSolution(String solution, Long ticketId) throws RepositoryException {
-        String EDIT_SOLUTION = "UPDATE Tickets SET solution = ? WHEERE id = ?";
+        String EDIT_SOLUTION = "UPDATE Tickets SET solution = ? WHERE id = ?";
         try {
             return jdbcTemplate.update(EDIT_SOLUTION, solution, ticketId);
         } catch (Exception e) {
