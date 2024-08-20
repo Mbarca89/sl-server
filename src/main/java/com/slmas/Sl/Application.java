@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class Application {
 
 	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
 		// Obtener la hora actual
 		LocalDateTime now = LocalDateTime.now();
 
@@ -19,7 +20,6 @@ public class Application {
 
 		// Imprimir la hora actual en la consola
 		System.out.println("La hora actual es: " + formattedDateTime);
-		SpringApplication.run(Application.class, args);
 	}
 
 }
