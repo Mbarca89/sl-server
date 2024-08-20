@@ -128,6 +128,34 @@ public class TicketRepositoryImpl implements TicketRepository {
             throw new RepositoryException("Error en base de datos: " + e.getMessage());
         }
     }
+    @Override
+    public Integer editTicketSolution(String solution, Long ticketId) throws RepositoryException {
+        String EDIT_SOLUTION = "UPDATE Tickets SET solution = ? WHEERE id = ?";
+        try {
+            return jdbcTemplate.update(EDIT_SOLUTION, solution, ticketId);
+        } catch (Exception e) {
+            throw new RepositoryException("Error en base de datos: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Ticket> getClosedByMeTickets(Date startDate, Date endDate, String solvedBy) throws RepositoryException {
+        String GET_FILTERED_TICKETS = "SELECT * FROM Tickets WHERE ticket_date BETWEEN ? AND ? AND solved_by = ?";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        endDate = calendar.getTime();
+        Object[] params = {new Timestamp(startDate.getTime()), new Timestamp(endDate.getTime()), solvedBy};
+        int[] types = {Types.TIMESTAMP, Types.TIMESTAMP, Types.VARCHAR};
+        try {
+            return jdbcTemplate.query(GET_FILTERED_TICKETS, params, types, new TicketsRowMapper());
+        } catch (Exception e) {
+            throw new RepositoryException("Error en base de datos: " + e.getMessage());
+        }
+    }
 
     static class TicketsRowMapper implements RowMapper<Ticket> {
         @Override

@@ -93,11 +93,36 @@ public class TicketController {
         }
     }
 
+    @GetMapping("/getClosedByMeTickets")
+    public ResponseEntity<?> GetClosedByMeTicketsHandler(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                    @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                                    @RequestParam String solvedBy) {
+        try {
+            List<TicketResponseDto> tickets = ticketService.getClosedByMeTickets(startDate, endDate, solvedBy);
+            return ResponseEntity.status(HttpStatus.OK).body(tickets);
+        } catch (RepositoryException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/close")
     public ResponseEntity<?> closeTicketHandler(@RequestBody TicketRequestDto ticketRequestDto) {
-        System.out.println(ticketRequestDto.toString());
         try {
             String response = ticketService.closeTicket(ticketRequestDto);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (RepositoryException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<?> editTicketHandler(@RequestParam String solution, @RequestParam Long ticketId) {
+        try {
+            String response = ticketService.editTicketSolution(solution, ticketId);
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (RepositoryException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

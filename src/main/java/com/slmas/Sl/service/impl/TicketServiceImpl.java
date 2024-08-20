@@ -57,6 +57,22 @@ public class TicketServiceImpl implements TicketService {
         }
     }
 
+    @Override
+    public String editTicketSolution (String solution, Long ticketId) throws RepositoryException {
+        Integer response = ticketRepository.editTicketSolution(solution, ticketId);
+        if (response == 1) {
+            return "Ticket editado con éxito.";
+        } else {
+            throw new RuntimeException("Error al editar el ticket");
+        }
+    }
+
+    @Override
+    public List<TicketResponseDto> getClosedByMeTickets(Date startDate, Date endDate, String solvedBy) throws RepositoryException {
+        List<Ticket> tickets = ticketRepository.getClosedByMeTickets(startDate, endDate, solvedBy);
+        return tickets.stream().map(this::MapTicketToDto).collect(Collectors.toList());
+    }
+
     private TicketResponseDto MapTicketToDto(Ticket ticket) {
         TicketResponseDto ticketResponseDto = new TicketResponseDto();
         ticketResponseDto.setId(ticket.getId());
