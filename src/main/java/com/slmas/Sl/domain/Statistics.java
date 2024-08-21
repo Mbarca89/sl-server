@@ -1,32 +1,50 @@
 package com.slmas.Sl.domain;
 
+import java.util.List;
 import java.util.Map;
 
 public class Statistics {
-    Map<String, Integer> ticketsPerArea;
-    Double averageResponseTime;
-    Integer totalTickets;
-    Integer todayTickets;
-    Map<String, Integer> ticketsByUser;
-    Map<String, Integer> ticketsByType;
+    private List<CountEntry> ticketsPerArea;
+    private List<CountEntry> ticketsByUser;
+    private List<CountEntry> ticketsByType;
+    private Double averageResponseTime;
+    private Integer todayTickets;
+    private Integer totalTickets;
 
     public Statistics() {
     }
 
-    public Statistics(Map<String, Integer> ticketsPerArea, Double averageResponseTime, Integer todayTickets, Map<String, Integer> ticketsByUser, Map<String, Integer> ticketsByType) {
+    public Statistics(List<CountEntry> ticketsPerArea, List<CountEntry> ticketsByUser, List<CountEntry> ticketsByType, Double averageResponseTime, Integer todayTickets, Integer totalTickets) {
         this.ticketsPerArea = ticketsPerArea;
-        this.averageResponseTime = averageResponseTime;
-        this.todayTickets = todayTickets;
         this.ticketsByUser = ticketsByUser;
         this.ticketsByType = ticketsByType;
+        this.averageResponseTime = averageResponseTime;
+        this.todayTickets = todayTickets;
+        this.totalTickets = totalTickets;
     }
 
-    public Map<String, Integer> getTicketsPerArea() {
+    public List<CountEntry> getTicketsPerArea() {
         return ticketsPerArea;
     }
 
-    public void setTicketsPerArea(Map<String, Integer> ticketsPerArea) {
+    public void setTicketsPerArea(List<CountEntry> ticketsPerArea) {
         this.ticketsPerArea = ticketsPerArea;
+    }
+
+    public List<CountEntry> getTicketsByUser() {
+        return ticketsByUser;
+    }
+
+    public void setTicketsByUser(List<CountEntry> ticketsByUser) {
+        this.ticketsByUser = ticketsByUser;
+    }
+
+    public List<CountEntry> getTicketsByType() {
+        return ticketsByType;
+    }
+
+    public void setTicketsByType(List<CountEntry> ticketsByType) {
+        this.ticketsByType = ticketsByType;
     }
 
     public Double getAverageResponseTime() {
@@ -43,22 +61,6 @@ public class Statistics {
 
     public void setTodayTickets(Integer todayTickets) {
         this.todayTickets = todayTickets;
-    }
-
-    public Map<String, Integer> getTicketsByUser() {
-        return ticketsByUser;
-    }
-
-    public void setTicketsByUser(Map<String, Integer> ticketsByUser) {
-        this.ticketsByUser = ticketsByUser;
-    }
-
-    public Map<String, Integer> getTicketsByType() {
-        return ticketsByType;
-    }
-
-    public void setTicketsByType(Map<String, Integer> ticketsByType) {
-        this.ticketsByType = ticketsByType;
     }
 
     public Integer getTotalTickets() {
