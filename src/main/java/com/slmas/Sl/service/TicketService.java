@@ -15,7 +15,7 @@ public interface TicketService {
 
     List<TicketResponseDto> getFilteredTickets(Date startDate, Date endDate, String area, String closed) throws RepositoryException;
     List<TicketResponseDto> getClosedByMeTickets(Date startDate, Date endDate, String solvedBy) throws RepositoryException;
-
+    List<TicketResponseDto> getImportantTickets() throws RepositoryException;
     List<TicketResponseDto> getUserTickets(Date startDate, Date endDate, Long userId) throws RepositoryException;
 
     String closeTicket(TicketRequestDto ticketRequestDto) throws RepositoryException;

@@ -19,6 +19,7 @@ public class Ticket {
     @Lob
     byte[] image;
     boolean closed;
+    boolean important;
 
     public Ticket() {
     }
@@ -143,5 +144,13 @@ public class Ticket {
                 ", solvedDate=" + solvedDate +
                 ", closed=" + closed +
                 '}';
+    }
+
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
     }
 }

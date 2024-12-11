@@ -48,6 +48,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<TicketResponseDto> getImportantTickets() throws RepositoryException {
+        List<Ticket> tickets = ticketRepository.getImportantTickets();
+        return tickets.stream().map(this::MapTicketToDto).collect(Collectors.toList());
+    }
+
+    @Override
     public String closeTicket (TicketRequestDto ticketRequestDto) throws RepositoryException {
         Integer response = ticketRepository.closeTicket(MapDtoToTicket(ticketRequestDto));
         if (response == 1) {
@@ -93,6 +99,7 @@ public class TicketServiceImpl implements TicketService {
         }
         ticketResponseDto.setImage(ticket.getImage());
         ticketResponseDto.setClosed(ticket.isClosed());
+        ticketResponseDto.setImportant(ticket.isImportant());
         ticketResponseDto.setUserName(ticket.getUserName());
         return ticketResponseDto;
     }
@@ -111,6 +118,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setSolvedBy(ticketRequestDto.getSolvedBy());
         ticket.setSolvedDate(ticketRequestDto.getSolvedDate());
         ticket.setClosed(ticketRequestDto.isClosed());
+        ticket.setImportant(ticketRequestDto.isImportant());
         return ticket;
     }
 }

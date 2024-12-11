@@ -18,6 +18,7 @@ public class TicketResponseDto {
     @Lob
     byte[] image;
     boolean closed;
+    boolean important;
 
     public TicketResponseDto() {
     }
@@ -124,5 +125,13 @@ public class TicketResponseDto {
 
     public void setClosed(boolean closed) {
         this.closed = closed;
+    }
+
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
     }
 }

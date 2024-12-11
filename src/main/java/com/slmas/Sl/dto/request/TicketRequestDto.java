@@ -24,6 +24,14 @@ public class TicketRequestDto {
                 '}';
     }
 
+    public boolean isImportant() {
+        return important;
+    }
+
+    public void setImportant(boolean important) {
+        this.important = important;
+    }
+
     public interface Create {}
     public interface Update{}
     @NotNull(groups = Update.class)
@@ -48,6 +56,7 @@ public class TicketRequestDto {
     Date solvedDate;
     @NotNull(groups = {Update.class})
     boolean closed;
+    boolean important;
 
     public TicketRequestDto() {
     }

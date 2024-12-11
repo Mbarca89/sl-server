@@ -93,6 +93,18 @@ public class TicketController {
         }
     }
 
+    @GetMapping("/getImportantTickets")
+    public ResponseEntity<?> GetImportantTicketsHandler() {
+        try {
+            List<TicketResponseDto> ticket = ticketService.getImportantTickets();
+            return ResponseEntity.status(HttpStatus.OK).body(ticket);
+        } catch (RepositoryException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/getClosedByMeTickets")
     public ResponseEntity<?> GetClosedByMeTicketsHandler(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,

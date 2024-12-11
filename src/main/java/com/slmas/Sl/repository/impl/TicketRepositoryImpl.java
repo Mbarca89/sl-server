@@ -68,6 +68,16 @@ public class TicketRepositoryImpl implements TicketRepository {
         }
     }
 
+    @Override
+    public List<Ticket> getImportantTickets() throws RepositoryException {
+        String GET_TICKETS = "SELECT * FROM Tickets WHERE important = true";
+        try {
+            return jdbcTemplate.query(GET_TICKETS, new TicketsRowMapper());
+        } catch (Exception e) {
+            throw new RepositoryException("Error en base de datos: " + e.getMessage());
+        }
+    }
+
 
     @Override
     public Ticket getTicketById(Long id) throws RepositoryException {
@@ -120,10 +130,10 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
     @Override
     public Integer closeTicket(Ticket ticket) throws RepositoryException {
-        String CLOSE_TICKET = "UPDATE Tickets SET solution = ?, solved_by = ?, solved_date = ?, closed = true WHERE id = ?";
+        String CLOSE_TICKET = "UPDATE Tickets SET solution = ?, solved_by = ?, solved_date = ?, closed = true, important = ? WHERE id = ?";
         Timestamp solvedDate = Timestamp.valueOf(LocalDateTime.now());
         try {
-            return jdbcTemplate.update(CLOSE_TICKET, ticket.getSolution(), ticket.getSolvedBy(), solvedDate, ticket.getId());
+            return jdbcTemplate.update(CLOSE_TICKET, ticket.getSolution(), ticket.getSolvedBy(), solvedDate, ticket.isImportant(), ticket.getId());
         } catch (Exception e) {
             throw new RepositoryException("Error en base de datos: " + e.getMessage());
         }

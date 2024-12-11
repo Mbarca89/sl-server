@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS Tickets (
     solved_date DATETIME,
     image BLOB,
     closed BOOLEAN DEFAULT FALSE,
+    important BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 

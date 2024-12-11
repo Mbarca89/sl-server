@@ -14,4 +14,5 @@ public interface TicketRepository {
     List<Ticket> getClosedByMeTickets(Date startDate, Date endDate, String solvedBy) throws RepositoryException;
     Integer closeTicket (Ticket ticket) throws RepositoryException;
     Integer editTicketSolution (String solution, Long ticketId) throws RepositoryException;
+    List<Ticket> getImportantTickets() throws RepositoryException;
 }
