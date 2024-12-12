@@ -15,4 +15,5 @@ public interface TicketRepository {
     Integer closeTicket (Ticket ticket) throws RepositoryException;
     Integer editTicketSolution (String solution, Long ticketId) throws RepositoryException;
     List<Ticket> getImportantTickets() throws RepositoryException;
+    Integer removeFromImportant(Long id) throws RepositoryException;
 }

@@ -131,6 +131,18 @@ public class TicketController {
         }
     }
 
+    @PutMapping("/remove")
+    public ResponseEntity<?> removeTicketHandler(@RequestParam Long id) {
+        try {
+            String response = ticketService.removeFromImportant(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (RepositoryException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @PutMapping("/edit")
     public ResponseEntity<?> editTicketHandler(@RequestParam String solution, @RequestParam Long ticketId) {
         try {

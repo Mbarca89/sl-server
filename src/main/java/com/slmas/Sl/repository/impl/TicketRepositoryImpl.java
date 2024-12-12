@@ -138,6 +138,17 @@ public class TicketRepositoryImpl implements TicketRepository {
             throw new RepositoryException("Error en base de datos: " + e.getMessage());
         }
     }
+
+    @Override
+    public Integer removeFromImportant (Long id) throws RepositoryException {
+        String REMOVE_FROM_IMPORTANT = "UPDATE Tickets SET important = false WHERE id = ?";
+        try {
+            return jdbcTemplate.update(REMOVE_FROM_IMPORTANT, id);
+        } catch (Exception e){
+            throw new RepositoryException("Error en base de datos: " + e.getMessage());
+        }
+    }
+
     @Override
     public Integer editTicketSolution(String solution, Long ticketId) throws RepositoryException {
         String EDIT_SOLUTION = "UPDATE Tickets SET solution = ? WHERE id = ?";

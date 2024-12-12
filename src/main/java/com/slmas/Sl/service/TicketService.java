@@ -19,7 +19,7 @@ public interface TicketService {
     List<TicketResponseDto> getUserTickets(Date startDate, Date endDate, Long userId) throws RepositoryException;
 
     String closeTicket(TicketRequestDto ticketRequestDto) throws RepositoryException;
-
+    String removeFromImportant(Long id) throws RepositoryException;
     String editTicketSolution(String solution, Long ticketId) throws RepositoryException;
 
 }

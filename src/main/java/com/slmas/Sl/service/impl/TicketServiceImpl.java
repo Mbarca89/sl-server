@@ -54,6 +54,16 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public String removeFromImportant(Long id) throws RepositoryException {
+        Integer response = ticketRepository.removeFromImportant(id);
+        if (response == 1) {
+            return "Ticket quitado con exito.";
+        } else {
+            throw new RuntimeException("Error al quitar el ticket");
+        }
+    }
+
+    @Override
     public String closeTicket (TicketRequestDto ticketRequestDto) throws RepositoryException {
         Integer response = ticketRepository.closeTicket(MapDtoToTicket(ticketRequestDto));
         if (response == 1) {
