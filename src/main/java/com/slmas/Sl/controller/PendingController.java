@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pending")
@@ -25,8 +26,9 @@ public class PendingController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> CreatePendingHandler(@RequestBody String notes) {
+    public ResponseEntity<?> CreatePendingHandler(@RequestBody Map<String, String> requestBody) {
         try {
+            String notes = requestBody.get("notes");
             pendingService.createPending(notes);
             return ResponseEntity.status(HttpStatus.OK).body("Tarea creada correctamente!");
         } catch (RepositoryException e) {
