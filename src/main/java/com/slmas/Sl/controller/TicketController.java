@@ -144,9 +144,10 @@ public class TicketController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> editTicketHandler(@RequestParam String solution, @RequestParam Long ticketId) {
+    public ResponseEntity<?> editTicketHandler(@RequestParam("ticket") String ticketJson) {
         try {
-            String response = ticketService.editTicketSolution(solution, ticketId);
+            TicketRequestDto ticketRequestDto = new ObjectMapper().readValue(ticketJson, TicketRequestDto.class);
+            String response = ticketService.editTicketSolution(ticketRequestDto.getSolution(), ticketRequestDto.getId());
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (RepositoryException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
