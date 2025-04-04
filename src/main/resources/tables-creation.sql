@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Tickets (
     title VARCHAR(50) NOT NULL,
     type VARCHAR(50) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    solution VARCHAR(255),
+    solution TEXT,
     solved_by VARCHAR(50),
     solved_date DATETIME,
     image BLOB,

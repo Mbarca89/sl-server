@@ -128,6 +128,46 @@ public class TicketRepositoryImpl implements TicketRepository {
             throw new RepositoryException("Error en base de datos: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<Ticket> downloadTickets(Date startDate, Date endDate, String area, String closed) throws RepositoryException {
+        String GET_FILTERED_TICKETS = "SELECT * FROM Tickets WHERE ticket_date BETWEEN ? AND ?";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(endDate);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        endDate = calendar.getTime();
+        Object[] params = {new Timestamp(startDate.getTime()), new Timestamp(endDate.getTime())};
+        int[] types = {Types.TIMESTAMP, Types.TIMESTAMP};
+        if (!area.isEmpty()) {
+            GET_FILTERED_TICKETS = GET_FILTERED_TICKETS + " AND area = ?";
+            Object[] newParams = Arrays.copyOf(params, params.length + 1);
+            newParams[newParams.length - 1] = area;
+            params = newParams;
+            int[] newTypes = Arrays.copyOf(types, types.length + 1);
+            newTypes[newTypes.length - 1] = Types.VARCHAR;
+            types = newTypes;
+        }
+        if (!closed.isEmpty()) {
+            boolean isClosed;
+            isClosed = closed.equals("true");
+            GET_FILTERED_TICKETS = GET_FILTERED_TICKETS + " AND closed = ?";
+            Object[] newParams = Arrays.copyOf(params, params.length + 1);
+            newParams[newParams.length - 1] = isClosed;
+            params = newParams;
+            int[] newTypes = Arrays.copyOf(types, types.length + 1);
+            newTypes[newTypes.length - 1] = Types.BOOLEAN;
+            types = newTypes;
+        }
+        try {
+            return jdbcTemplate.query(GET_FILTERED_TICKETS, params, types, new fullTicketRowMapper());
+        } catch (Exception e) {
+            throw new RepositoryException("Error en base de datos: " + e.getMessage());
+        }
+    }
+
     @Override
     public Integer closeTicket(Ticket ticket) throws RepositoryException {
         String CLOSE_TICKET = "UPDATE Tickets SET solution = ?, solved_by = ?, solved_date = ?, closed = true, important = ? WHERE id = ?";

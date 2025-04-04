@@ -42,6 +42,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public List<TicketResponseDto> downloadTickets(Date startDate, Date endDate, String area, String closed) throws RepositoryException {
+        List<Ticket> tickets = ticketRepository.downloadTickets(startDate, endDate, area, closed);
+        return tickets.stream().map(this::MapTicketToDto).collect(Collectors.toList());
+    }
+
+    @Override
     public List<TicketResponseDto> getUserTickets(Date startDate, Date endDate, Long userId) throws RepositoryException {
         List<Ticket> tickets = ticketRepository.getUserTickets(startDate, endDate, userId);
         return tickets.stream().map(this::MapTicketToDto).collect(Collectors.toList());

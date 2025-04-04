@@ -67,6 +67,22 @@ public class TicketController {
         }
     }
 
+    @GetMapping("/downloadTickets")
+    public ResponseEntity<?> downloadTicketsHandler(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                                       @RequestParam String area,
+                                                       @RequestParam String closed) {
+        try {
+            List<TicketResponseDto> tickets = ticketService.downloadTickets(startDate, endDate, area, closed);
+            return ResponseEntity.status(HttpStatus.OK).body(tickets);
+
+        } catch (RepositoryException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
     @GetMapping("/getUserTickets")
     public ResponseEntity<?> GetUsersTicketsHandler(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                                     @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
