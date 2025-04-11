@@ -26,6 +26,17 @@ CREATE TABLE IF NOT EXISTS Tickets (
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
+CREATE TABLE IF NOT EXISTS Works (
+    id LONG PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    user_id LONG NOT NULL,
+    user_name VARCHAR(50) NOT NULL,
+    work_date DATETIME NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    image BLOB,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
 CREATE TABLE IF NOT EXISTS Pending (
     id LONG PRIMARY KEY AUTO_INCREMENT NOT NULL,
     pending_date DATETIME NOT NULL,
@@ -46,4 +57,12 @@ CREATE TABLE IF NOT EXISTS UserTickets (
     PRIMARY KEY (user_id, ticket_id),
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (ticket_id) REFERENCES Tickets(id)
-)
+);
+
+CREATE TABLE IF NOT EXISTS UserWorks (
+    user_id LONG NOT NULL,
+    work_id LONG NOT NULL,
+    PRIMARY KEY (user_id, work_id),
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (work_id) REFERENCES Works(id)
+);
