@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Works (
     user_name VARCHAR(50) NOT NULL,
     work_date DATETIME NOT NULL,
     title VARCHAR(50) NOT NULL,
-    description VARCHAR(255) NOT NULL,
+    description LONGTEXT NOT NULL,
     image BLOB,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
