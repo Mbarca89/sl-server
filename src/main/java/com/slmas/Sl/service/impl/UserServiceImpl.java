@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String editUser(UserRequestDto userRequestDto) throws MissingDataException, NoSuchAlgorithmException, NotFoundException {
+    public String editUser(UserRequestDto userRequestDto) throws Exception {
         if (userRequestDto.getUserName() == null ||
                 userRequestDto.getRole() == null || Objects.equals(userRequestDto.getUserName(), "")
                 || Objects.equals(userRequestDto.getRole(), "")) {
@@ -95,7 +95,6 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
             throw new RuntimeException("Failed to decrypt password", e);
         }
-
         String hashedPassword = passwordEncoder.encode(decryptedPassword);
 
         User user = new User();
@@ -103,7 +102,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userRequestDto.getName());
         user.setSurname(userRequestDto.getSurname());
         user.setUserName(userRequestDto.getUserName());
-        user.setPassword(hashedPassword);
+        user.setPassword(decryptedPassword.isEmpty() ? "" : hashedPassword);
         user.setArea(userRequestDto.getArea());
         user.setRole(userRequestDto.getRole());
         return user;

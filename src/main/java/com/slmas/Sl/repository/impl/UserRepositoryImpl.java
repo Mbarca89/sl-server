@@ -3,6 +3,7 @@ package com.slmas.Sl.repository.impl;
 import com.slmas.Sl.domain.User;
 import com.slmas.Sl.exceptions.NotFoundException;
 import com.slmas.Sl.repository.UserRepository;
+import com.slmas.Sl.utils.CryptoUtils;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -25,9 +26,11 @@ public class UserRepositoryImpl implements UserRepository {
     private final String EDIT_USER = "UPDATE users SET name = ?, surname = ?, user_name = ?, password = ?, role = ?, area = ? WHERE id = ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final CryptoUtils cryptoUtils;
 
-    public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public UserRepositoryImpl(JdbcTemplate jdbcTemplate, CryptoUtils cryptoUtils) {
         this.jdbcTemplate = jdbcTemplate;
+        this.cryptoUtils = cryptoUtils;
     }
 
     @Override
@@ -62,7 +65,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Integer editUser(User newUser) throws NotFoundException {
+    public Integer editUser(User newUser) throws Exception {
         User edituser = new User();
 
         Object[] params = {newUser.getId()};
@@ -72,7 +75,6 @@ public class UserRepositoryImpl implements UserRepository {
         if (currentUser == null) {
             throw new NotFoundException("Usuario no encontrado!");
         }
-
         edituser.setName(currentUser.getUserName());
         if (!newUser.getName().isEmpty()) edituser.setName(newUser.getName());
         else edituser.setName(currentUser.getName());

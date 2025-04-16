@@ -10,6 +10,6 @@ public interface UserRepository {
     Integer deleteUser(String userName);
     User findUserByName(String userName) throws NotFoundException;
     List<User> getUsers();
-    Integer editUser(User user) throws NotFoundException;
+    Integer editUser(User user) throws Exception;
 
 }
