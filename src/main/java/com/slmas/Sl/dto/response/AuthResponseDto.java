@@ -1,7 +1,5 @@
 package com.slmas.Sl.dto.response;
 
-import java.util.Collection;
-
 public class AuthResponseDto {
     Long id;
     String name;
@@ -9,7 +7,7 @@ public class AuthResponseDto {
     String token;
     String userName;
     String area;
-    Collection role;
+    String role;
 
     public String getUserName() {
         return userName;
@@ -26,11 +24,11 @@ public class AuthResponseDto {
         this.token = token;
     }
 
-    public Collection getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Collection role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

@@ -66,3 +66,48 @@ CREATE TABLE IF NOT EXISTS UserWorks (
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (work_id) REFERENCES Works(id)
 );
+CREATE TABLE IF NOT EXISTS RecurringTasks (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id LONG NOT NULL,
+    title VARCHAR(120) NOT NULL,
+    description LONGTEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS DailyTasks (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id LONG NOT NULL,
+    user_name VARCHAR(120) NOT NULL,
+    task_date DATE NOT NULL,
+    type VARCHAR(30) NOT NULL,
+    title VARCHAR(120) NOT NULL,
+    description LONGTEXT,
+    area VARCHAR(80) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS Claims (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id LONG NOT NULL,
+    user_name VARCHAR(120) NOT NULL,
+    claim_date DATE NOT NULL,
+    title VARCHAR(120) NOT NULL,
+    area VARCHAR(80) NOT NULL,
+    claimant VARCHAR(120) NOT NULL,
+    problem_type VARCHAR(120) NOT NULL,
+    description LONGTEXT,
+    solution LONGTEXT,
+    images LONGTEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS CompletedWorks (
+    id VARCHAR(36) PRIMARY KEY NOT NULL,
+    user_id LONG NOT NULL,
+    user_name VARCHAR(120) NOT NULL,
+    work_date DATE NOT NULL,
+    title VARCHAR(120) NOT NULL,
+    area VARCHAR(80) NOT NULL,
+    description LONGTEXT,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
