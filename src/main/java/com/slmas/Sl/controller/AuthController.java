@@ -13,7 +13,7 @@ import javax.naming.AuthenticationException;
 import java.sql.PreparedStatement;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping
 public class AuthController {
 
     private final AuthService authService;
@@ -23,7 +23,7 @@ public class AuthController {
     }
 
     @CrossOrigin
-    @PostMapping("/login")
+    @PostMapping({"/auth/login", "/api/auth/login"})
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         try {
             AuthResponseDto response = authService.login(request);

@@ -4,6 +4,9 @@ public class LoginRequestDto {
     String userName;
     String password;
 
+    public LoginRequestDto() {
+    }
+
     public LoginRequestDto(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -14,6 +17,14 @@ public class LoginRequestDto {
     }
     public String getPassword() {
         return password;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
