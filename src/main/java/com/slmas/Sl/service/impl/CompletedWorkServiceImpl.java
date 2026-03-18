@@ -28,4 +28,14 @@ public class CompletedWorkServiceImpl implements CompletedWorkService {
         completedWork.setDescription(request.getDescription());
         return completedWorkRepository.create(completedWork);
     }
+
+    @Override
+    public CompletedWork update(String id, CompletedWorkRequestDto request) {
+        CompletedWork completedWork = new CompletedWork();
+        completedWork.setId(id);
+        completedWork.setTitle(request.getTitle());
+        completedWork.setArea(request.getArea());
+        completedWork.setDescription(request.getDescription());
+        return completedWorkRepository.update(completedWork);
+    }
 }

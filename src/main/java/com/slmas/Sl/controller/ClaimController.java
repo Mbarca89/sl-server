@@ -27,4 +27,9 @@ public class ClaimController {
     public ResponseEntity<Claim> create(@RequestBody ClaimRequestDto request) {
         return ResponseEntity.ok(claimService.create(request));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Claim> update(@PathVariable String id, @RequestBody ClaimRequestDto request) {
+        return ResponseEntity.ok(claimService.update(id, request));
+    }
 }

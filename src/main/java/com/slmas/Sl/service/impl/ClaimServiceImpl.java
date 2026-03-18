@@ -32,4 +32,18 @@ public class ClaimServiceImpl implements ClaimService {
         claim.setImages(request.getImages());
         return claimRepository.create(claim);
     }
+
+    @Override
+    public Claim update(String id, ClaimRequestDto request) {
+        Claim claim = new Claim();
+        claim.setId(id);
+        claim.setTitle(request.getTitle());
+        claim.setArea(request.getArea());
+        claim.setClaimant(request.getClaimant());
+        claim.setProblemType(request.getProblemType());
+        claim.setDescription(request.getDescription());
+        claim.setSolution(request.getSolution());
+        claim.setImages(request.getImages());
+        return claimRepository.update(claim);
+    }
 }
