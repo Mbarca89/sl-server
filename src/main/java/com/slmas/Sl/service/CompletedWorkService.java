@@ -8,4 +8,5 @@ import java.util.List;
 public interface CompletedWorkService {
     List<CompletedWork> findByUserIdAndDate(Long userId, LocalDate date);
     CompletedWork create(CompletedWorkRequestDto request);
+    CompletedWork update(String id, CompletedWorkRequestDto request);
 }

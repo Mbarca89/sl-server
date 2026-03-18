@@ -3,8 +3,8 @@ package com.slmas.Sl.service;
 import com.slmas.Sl.domain.Statistics;
 import com.slmas.Sl.exceptions.RepositoryException;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface StatisticsService {
-    Statistics getStatistics(Date startDate, Date endDate) throws RepositoryException;
+    Statistics getStatistics(LocalDate startDate, LocalDate endDate) throws RepositoryException;
 }

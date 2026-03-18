@@ -27,4 +27,9 @@ public class CompletedWorkController {
     public ResponseEntity<CompletedWork> create(@RequestBody CompletedWorkRequestDto request) {
         return ResponseEntity.ok(completedWorkService.create(request));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CompletedWork> update(@PathVariable String id, @RequestBody CompletedWorkRequestDto request) {
+        return ResponseEntity.ok(completedWorkService.update(id, request));
+    }
 }

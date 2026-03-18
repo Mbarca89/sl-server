@@ -1,73 +1,106 @@
 package com.slmas.Sl.domain;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 public class Statistics {
-    private List<CountEntry> ticketsPerArea;
-    private List<CountEntry> ticketsByUser;
-    private List<CountEntry> ticketsByType;
-    private Double averageResponseTime;
-    private Integer todayTickets;
-    private Integer totalTickets;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private List<CountEntry> itemsByRecordType;
+    private List<CountEntry> itemsByArea;
+    private List<CountEntry> claimsByProblemType;
+    private List<CountEntry> itemsByUser;
+    private List<CountEntry> claimsByClaimant;
+    private Integer totalItems;
+    private Integer totalClaims;
+    private Integer totalCompletedWorks;
+    private Integer totalRecurringTasks;
 
-    public Statistics() {
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public Statistics(List<CountEntry> ticketsPerArea, List<CountEntry> ticketsByUser, List<CountEntry> ticketsByType, Double averageResponseTime, Integer todayTickets, Integer totalTickets) {
-        this.ticketsPerArea = ticketsPerArea;
-        this.ticketsByUser = ticketsByUser;
-        this.ticketsByType = ticketsByType;
-        this.averageResponseTime = averageResponseTime;
-        this.todayTickets = todayTickets;
-        this.totalTickets = totalTickets;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public List<CountEntry> getTicketsPerArea() {
-        return ticketsPerArea;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setTicketsPerArea(List<CountEntry> ticketsPerArea) {
-        this.ticketsPerArea = ticketsPerArea;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public List<CountEntry> getTicketsByUser() {
-        return ticketsByUser;
+    public List<CountEntry> getItemsByRecordType() {
+        return itemsByRecordType;
     }
 
-    public void setTicketsByUser(List<CountEntry> ticketsByUser) {
-        this.ticketsByUser = ticketsByUser;
+    public void setItemsByRecordType(List<CountEntry> itemsByRecordType) {
+        this.itemsByRecordType = itemsByRecordType;
     }
 
-    public List<CountEntry> getTicketsByType() {
-        return ticketsByType;
+    public List<CountEntry> getItemsByArea() {
+        return itemsByArea;
     }
 
-    public void setTicketsByType(List<CountEntry> ticketsByType) {
-        this.ticketsByType = ticketsByType;
+    public void setItemsByArea(List<CountEntry> itemsByArea) {
+        this.itemsByArea = itemsByArea;
     }
 
-    public Double getAverageResponseTime() {
-        return averageResponseTime;
+    public List<CountEntry> getClaimsByProblemType() {
+        return claimsByProblemType;
     }
 
-    public void setAverageResponseTime(Double averageResponseTime) {
-        this.averageResponseTime = averageResponseTime;
+    public void setClaimsByProblemType(List<CountEntry> claimsByProblemType) {
+        this.claimsByProblemType = claimsByProblemType;
     }
 
-    public Integer getTodayTickets() {
-        return todayTickets;
+    public List<CountEntry> getItemsByUser() {
+        return itemsByUser;
     }
 
-    public void setTodayTickets(Integer todayTickets) {
-        this.todayTickets = todayTickets;
+    public void setItemsByUser(List<CountEntry> itemsByUser) {
+        this.itemsByUser = itemsByUser;
     }
 
-    public Integer getTotalTickets() {
-        return totalTickets;
+    public List<CountEntry> getClaimsByClaimant() {
+        return claimsByClaimant;
     }
 
-    public void setTotalTickets(Integer totalTickets) {
-        this.totalTickets = totalTickets;
+    public void setClaimsByClaimant(List<CountEntry> claimsByClaimant) {
+        this.claimsByClaimant = claimsByClaimant;
+    }
+
+    public Integer getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(Integer totalItems) {
+        this.totalItems = totalItems;
+    }
+
+    public Integer getTotalClaims() {
+        return totalClaims;
+    }
+
+    public void setTotalClaims(Integer totalClaims) {
+        this.totalClaims = totalClaims;
+    }
+
+    public Integer getTotalCompletedWorks() {
+        return totalCompletedWorks;
+    }
+
+    public void setTotalCompletedWorks(Integer totalCompletedWorks) {
+        this.totalCompletedWorks = totalCompletedWorks;
+    }
+
+    public Integer getTotalRecurringTasks() {
+        return totalRecurringTasks;
+    }
+
+    public void setTotalRecurringTasks(Integer totalRecurringTasks) {
+        this.totalRecurringTasks = totalRecurringTasks;
     }
 }
