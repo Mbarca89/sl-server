@@ -27,7 +27,7 @@ public class DailyTaskServiceImpl implements DailyTaskService {
         dailyTask.setType(request.getType());
         dailyTask.setTitle(request.getTitle());
         dailyTask.setDescription(request.getDescription());
-        dailyTask.setArea(request.getArea());
+        dailyTask.setArea("Sistemas");
         return dailyTaskRepository.create(dailyTask);
     }
 }

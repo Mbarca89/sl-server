@@ -55,6 +55,7 @@ public class ClaimRepositoryImpl implements ClaimRepository {
             claim.setUserId(rs.getLong("user_id"));
             claim.setUserName(rs.getString("user_name"));
             claim.setDate(rs.getDate("claim_date").toLocalDate());
+            claim.setType("reclamo");
             claim.setTitle(rs.getString("title"));
             claim.setArea(rs.getString("area"));
             claim.setClaimant(rs.getString("claimant"));

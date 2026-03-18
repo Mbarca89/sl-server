@@ -2,6 +2,8 @@ package com.slmas.Sl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +22,9 @@ public class Application {
 
 		// Imprimir la hora actual en la consola
 		System.out.println("La hora actual es: " + formattedDateTime);
+
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		System.out.println(encoder.encode("$sanluis13tv$"));
 	}
 
 }
