@@ -48,6 +48,19 @@ public class ClaimRepositoryImpl implements ClaimRepository {
         return claim;
     }
 
+    @Override
+    public Claim update(Claim claim) {
+        String imagesJson;
+        try {
+            imagesJson = objectMapper.writeValueAsString(claim.getImages());
+        } catch (Exception e) {
+            throw new RuntimeException("No se pudieron serializar las imágenes", e);
+        }
+        jdbcTemplate.update("UPDATE Claims SET title = ?, area = ?, claimant = ?, problem_type = ?, description = ?, solution = ?, images = ? WHERE id = ?",
+                claim.getTitle(), claim.getArea(), claim.getClaimant(), claim.getProblemType(), claim.getDescription(), claim.getSolution(), imagesJson, claim.getId());
+        return jdbcTemplate.queryForObject("SELECT * FROM Claims WHERE id = ?", rowMapper(), claim.getId());
+    }
+
     private RowMapper<Claim> rowMapper() {
         return (rs, rowNum) -> {
             Claim claim = new Claim();

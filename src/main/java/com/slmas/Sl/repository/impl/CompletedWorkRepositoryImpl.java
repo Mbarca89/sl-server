@@ -35,6 +35,13 @@ public class CompletedWorkRepositoryImpl implements CompletedWorkRepository {
         return completedWork;
     }
 
+    @Override
+    public CompletedWork update(CompletedWork completedWork) {
+        jdbcTemplate.update("UPDATE CompletedWorks SET title = ?, area = ?, description = ? WHERE id = ?",
+                completedWork.getTitle(), completedWork.getArea(), completedWork.getDescription(), completedWork.getId());
+        return jdbcTemplate.queryForObject("SELECT * FROM CompletedWorks WHERE id = ?", rowMapper(), completedWork.getId());
+    }
+
     private RowMapper<CompletedWork> rowMapper() {
         return (rs, rowNum) -> {
             CompletedWork completedWork = new CompletedWork();

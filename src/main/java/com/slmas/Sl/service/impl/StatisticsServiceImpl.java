@@ -6,16 +6,22 @@ import com.slmas.Sl.repository.StatisticsRepository;
 import com.slmas.Sl.service.StatisticsService;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
+
+    private final StatisticsRepository statisticsRepository;
 
     public StatisticsServiceImpl(StatisticsRepository statisticsRepository) {
         this.statisticsRepository = statisticsRepository;
     }
 
-    private StatisticsRepository statisticsRepository;
-    public Statistics getStatistics(Date startDate, Date endDate) throws RepositoryException {
+    @Override
+    public Statistics getStatistics(LocalDate startDate, LocalDate endDate) throws RepositoryException {
+        if (startDate.isAfter(endDate)) {
+            throw new RepositoryException("La fecha de inicio no puede ser mayor que la fecha de fin");
+        }
         return statisticsRepository.getStatistics(startDate, endDate);
     }
 }

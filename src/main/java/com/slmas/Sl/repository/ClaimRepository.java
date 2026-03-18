@@ -7,4 +7,5 @@ import java.util.List;
 public interface ClaimRepository {
     List<Claim> findByUserIdAndDate(Long userId, LocalDate date);
     Claim create(Claim claim);
+    Claim update(Claim claim);
 }
