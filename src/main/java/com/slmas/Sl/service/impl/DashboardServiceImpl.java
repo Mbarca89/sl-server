@@ -24,7 +24,8 @@ public class DashboardServiceImpl implements DashboardService {
         LocalDate today = LocalDate.now();
 
         List<DashboardTodayResponseDto.RecurringTaskDashboardItemDto> recurringTasks = jdbcTemplate.query(
-                "SELECT rt.id, rt.user_id, u.user_name, rt.title, rt.description FROM RecurringTasks rt JOIN Users u ON u.id = rt.user_id ORDER BY u.user_name, rt.title",
+                "SELECT rt.id, rt.user_id, TRIM(CONCAT(u.name, ' ', u.surname)) AS user_name, rt.title, rt.description " +
+                "FROM RecurringTasks rt JOIN Users u ON u.id = rt.user_id ORDER BY user_name, rt.title",
                 (rs, rowNum) -> {
                     DashboardTodayResponseDto.RecurringTaskDashboardItemDto item = new DashboardTodayResponseDto.RecurringTaskDashboardItemDto();
                     item.setId(rs.getString("id"));
@@ -36,13 +37,14 @@ public class DashboardServiceImpl implements DashboardService {
                 });
 
         List<Claim> claims = jdbcTemplate.query(
-                "SELECT * FROM Claims WHERE claim_date = ? ORDER BY user_name, title",
+                "SELECT c.*, TRIM(CONCAT(u.name, ' ', u.surname)) AS standardized_user_name " +
+                "FROM Claims c JOIN Users u ON u.id = c.user_id WHERE c.claim_date = ? ORDER BY standardized_user_name, c.title",
                 new Object[]{Date.valueOf(today)},
                 (rs, rowNum) -> {
                     Claim claim = new Claim();
                     claim.setId(rs.getString("id"));
                     claim.setUserId(rs.getLong("user_id"));
-                    claim.setUserName(rs.getString("user_name"));
+                    claim.setUserName(rs.getString("standardized_user_name"));
                     claim.setDate(rs.getDate("claim_date").toLocalDate());
                     claim.setType("reclamo");
                     claim.setTitle(rs.getString("title"));
@@ -55,13 +57,14 @@ public class DashboardServiceImpl implements DashboardService {
                 });
 
         List<CompletedWork> completedWorks = jdbcTemplate.query(
-                "SELECT * FROM CompletedWorks WHERE work_date = ? ORDER BY user_name, title",
+                "SELECT cw.*, TRIM(CONCAT(u.name, ' ', u.surname)) AS standardized_user_name " +
+                "FROM CompletedWorks cw JOIN Users u ON u.id = cw.user_id WHERE cw.work_date = ? ORDER BY standardized_user_name, cw.title",
                 new Object[]{Date.valueOf(today)},
                 (rs, rowNum) -> {
                     CompletedWork completedWork = new CompletedWork();
                     completedWork.setId(rs.getString("id"));
                     completedWork.setUserId(rs.getLong("user_id"));
-                    completedWork.setUserName(rs.getString("user_name"));
+                    completedWork.setUserName(rs.getString("standardized_user_name"));
                     completedWork.setDate(rs.getDate("work_date").toLocalDate());
                     completedWork.setTitle(rs.getString("title"));
                     completedWork.setArea(rs.getString("area"));
