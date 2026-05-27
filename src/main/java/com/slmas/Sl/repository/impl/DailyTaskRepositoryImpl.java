@@ -28,6 +28,7 @@ public class DailyTaskRepositoryImpl implements DailyTaskRepository {
     @Override
     public DailyTask create(DailyTask dailyTask) {
         dailyTask.setId(UUID.randomUUID().toString());
+        if (dailyTask.getArea().isEmpty()) dailyTask.setArea("Sistemas");
         jdbcTemplate.update("INSERT INTO DailyTasks (id, user_id, user_name, task_date, type, title, description, area) VALUES (?,?,?,?,?,?,?,?)",
                 dailyTask.getId(), dailyTask.getUserId(), dailyTask.getUserName(), Date.valueOf(dailyTask.getDate()), dailyTask.getType(),
                 dailyTask.getTitle(), dailyTask.getDescription(), dailyTask.getArea());
