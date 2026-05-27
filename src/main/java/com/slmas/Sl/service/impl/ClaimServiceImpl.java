@@ -19,6 +19,9 @@ public class ClaimServiceImpl implements ClaimService {
     public List<Claim> findByUserIdAndDate(Long userId, LocalDate date) { return claimRepository.findByUserIdAndDate(userId, date); }
 
     @Override
+    public Claim findById(String id) { return claimRepository.findById(id); }
+
+    @Override
     public Claim create(ClaimRequestDto request) {
         Claim claim = new Claim();
         claim.setUserId(request.getUserId());
