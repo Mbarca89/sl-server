@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<String> editUserHandler(@RequestBody UserRequestDto userRequestDto) {
         try {
             String response = userService.editUser(userRequestDto);
