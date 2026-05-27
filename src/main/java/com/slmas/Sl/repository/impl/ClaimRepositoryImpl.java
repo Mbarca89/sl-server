@@ -33,6 +33,11 @@ public class ClaimRepositoryImpl implements ClaimRepository {
     }
 
     @Override
+    public Claim findById(String id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM Claims WHERE id = ?", rowMapper(), id);
+    }
+
+    @Override
     public Claim create(Claim claim) {
         claim.setId(UUID.randomUUID().toString());
         claim.setDate(LocalDate.now());

@@ -23,6 +23,11 @@ public class ClaimController {
         return ResponseEntity.ok(claimService.findByUserIdAndDate(userId, date));
     }
 
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<Claim> findById(@PathVariable String id) {
+        return ResponseEntity.ok(claimService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Claim> create(@RequestBody ClaimRequestDto request) {
         return ResponseEntity.ok(claimService.create(request));
